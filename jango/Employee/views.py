@@ -1,7 +1,7 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.contrib.auth import authenticate
 from .forms import EmpForm
 from .models import Employee
 from django.contrib import messages
@@ -27,13 +27,27 @@ def empDetails(request):
 
             print(eno, ename, salary) '''
 
-            obj = EmpForm(request.POST)
+            #obj = EmpForm(request.POST)
 
-            if obj.is_valid():
+            #if obj.is_valid():
 
-                obj.save()
+                #obj.save()
 
+                #messages.success(request, 'Successfully inserted')
+
+            eForm = EmpForm(request.POST)
+
+            if eForm.is_valid():
+                emp = Employee()
+                emp.empno = eForm.cleaned_data['empno']
+                emp.empname = eForm.cleaned_data['empname']
+                emp.salary = eForm.cleaned_data['salary']
+                emp.joining_date = eForm.cleaned_data['joining_date']
+
+                emp.save()
                 messages.success(request, 'Successfully inserted')
+    
+
 
     except Exception:
         messages.error(request, 'Something went wrong')
@@ -73,17 +87,38 @@ def fetchData(request):
 
 def deleteEmp(request):
 
-    no = request.POST['eno']
+    if request.method == 'POST':
 
-    Employee.objects.filter(empno=no).delete()
+        no = request.POST['eno']
+
+        Employee.objects.filter(empno=no).delete()
  
-    return render(request, 'empdetails.html')
+    return render(request, 'delete.html')
 
     
     
 
 
 
+def login(request):
+    if request.method == 'POST':
 
+        user = request.POST['user']
+        pwd = request.POST['pwd']
+
+        valid = authenticate(request,username = user,password = pwd )
+        print(valid)
+        messages.error(request,'given username or password is incorrect')
+
+        if valid is not None:
+            return render(request,'home.html')
+
+        else:
+            
+            return render(request,'login.html')    
+
+
+
+    return render(request,'login.html')
 
 

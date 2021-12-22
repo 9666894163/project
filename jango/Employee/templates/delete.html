@@ -1,0 +1,14 @@
+{% extends 'Base.html' %}
+
+{% block left %}
+<div>
+    <form action="delete_emp" method='post'>
+        {% csrf_token %}
+        <p><label for="">Enter employee no</label><input type="text" name='eno' /></p>
+        <p><input type="submit" name='submit'></p>
+        <a href="{% url 'home' %}">Home</a>
+
+    </form>
+</div>
+
+{% endblock %}

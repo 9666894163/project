@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,44 +8,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 
-    <style>
-        html,
-        body {
-            width: 100%;
-            height: 100%;
-        }
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <script src="{% static 'js/validate.js' %}"></script>
 
-        .main {
-            width: 100%;
-            height: 20%;
-            background: purple;
-
-        }
-
-        .left {
-
-            float: left;
-            background-color:greenyellow;
-            width: 100%;
-            height: 80%;
-            text-align: center;
-        }
-
-
-        /* .right {
-            float: right;
-            background-color: darkcyan;
-            width: 50%;
-            height: 80%;
-            text-align: center;  */
-        
-    </style>
+    
 </head>
 
 <body>
     <div class='main'>
         <center>
-            <h1>VCube Softeware solutions</h1>
+            <h1>VCube Software solutions</h1>
         </center>
 
     </div>
