@@ -1,14 +1,15 @@
 {% extends 'Base.html' %}
+{% load static %}
     <style>
         table {
             border-style: solid;
         }    
     </style>
 
-
+<script src="{% static 'js/validate.js' %}"></script>
 <body>
    
-   <p>VCube software solutions</p>
+   <!--<p>VCube software solutions</p>
    <p>we are providing corporate training</p> 
 
     <form action = "output" method="POST">
@@ -25,7 +26,7 @@
             <input type="submit" name='delete' value='delete'>
         </form>
 
-    </div>
+    </div>-->
       
     
     
@@ -34,7 +35,7 @@
     <form action="input" method ="POST">
         {% csrf_token %}
         {{form.as_p}}
-        <button type="submit"> SUBMIT </button>
+        <button type="submit" onclick="validatesal()"> SUBMIT </button>
 
         <a href="{% url 'home' %}" > Home </a>
 
@@ -44,6 +45,6 @@
     <p>{{m}}</p>
     {% endfor %}
 
-    {% endblock left %}
+    {% endblock %}
     
 </body>

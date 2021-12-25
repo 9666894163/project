@@ -1,0 +1,24 @@
+{% extends 'Base.html' %}
+
+{% block left %}
+
+<form action="register" method = "post">
+    {% csrf_token %}
+    <!--{{userForm.as_p}}-->
+
+    {% for field in userform %}
+
+    <p>{{field.label_tag}}{{field}}</p>
+
+    {% endfor %}
+
+
+    <button type="submit" name = "userCreate"> submit</button>
+</form>
+
+<div>
+    <a href="login">Sign in</a>
+</div>
+
+
+{% endblock %}

@@ -7,14 +7,14 @@ body {
 .main {
     width: 100%;
     height: 20%;
-    background: purple;
+    background: orchid;
 
 }
 
 .left {
 
     float: left;
-    background-color:greenyellow;
+    background-color:rgb(47, 255, 210);
     width: 100%;
     height: 80%;
     text-align: center;

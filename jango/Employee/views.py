@@ -1,13 +1,37 @@
 
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.contrib.auth import authenticate
-from .forms import EmpForm
+from django.contrib.auth import authenticate,login, logout
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.decorators import login_required
+from .forms import EmpForm,CreateUser
 from .models import Employee
 from django.contrib import messages
+
 # Create your views here.
 
+def register(request):
+    form = CreateUser()
+    context = {'userform': form}
+    if request.method =='POST':
+        obj = CreateUser(request.POST)
+        print(request.POST)
+        if obj.is_valid():
+            obj.save()
+            return render(request,'login.html')
+        else:
+            print('form is not valid')
+            print(obj.errors)
+            return render(request,'register.html',context)
+
+    
+    return render(request,'register.html',context)            
+
+@login_required(login_url='login')
+
 def home(request):
+    print(dir(request.session))
+
     return render(request,'home.html')
 
 def empDetails(request):
@@ -95,12 +119,8 @@ def deleteEmp(request):
  
     return render(request, 'delete.html')
 
-    
-    
 
-
-
-def login(request):
+def userLogin(request):
     if request.method == 'POST':
 
         user = request.POST['user']
@@ -108,9 +128,10 @@ def login(request):
 
         valid = authenticate(request,username = user,password = pwd )
         print(valid)
-        messages.error(request,'given username or password is incorrect')
-
+        
         if valid is not None:
+            login(request,valid)
+            request.session['username'] = user
             return render(request,'home.html')
 
         else:
@@ -122,3 +143,11 @@ def login(request):
     return render(request,'login.html')
 
 
+@login_required(login_url='login')
+def userLogout(request):
+    if request.user.is_authenticated:
+        logout(request)
+        return render(request,'login.html')
+
+    else:
+        return render(request,'home.html')    

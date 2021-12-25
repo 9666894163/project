@@ -1,12 +1,16 @@
 {% extends 'Base.html' %}
 
 {% block left %}
-<form action="" method="post">
+<form action="login" method="post">
     {% csrf_token %}
+    
 
     <p>Enter user: <input type="text" name="user"></p>
     <p>Enter password: <input type="text" name  = "pwd"></p>
     <button type="submit">submit</button>
+
+    <a href="register">Sign Up</a> 
+
 </form>
 
 
